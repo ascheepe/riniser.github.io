@@ -61,11 +61,11 @@ function resizeImage() {
     }
 
     downloadButton.style.display = "inline-block";
+    output.scrollIntoView({behavior: "smooth"});
+    output.focus();
   };
 
   img.src = URL.createObjectURL(file);
-  output.scrollIntoView({behavior: "smooth"});
-  output.focus();
 }
 
 /* ---------------- wiring ---------------- */
