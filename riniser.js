@@ -64,6 +64,7 @@ function resizeImage() {
   };
 
   img.src = URL.createObjectURL(file);
+  img.focus();
 }
 
 /* ---------------- wiring ---------------- */
