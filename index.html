@@ -75,20 +75,19 @@ img {
 </head>
 
 <body>
-  <span>
+  <div>
   <label for="image-input" class="file-button">
     Selecteer een afbeelding
   </label>
   <input type="file" id="image-input" accept="image/*">
-  </span>
-  <span>
+  </div>
+  <div id="resolution-warning"></div>
+  <div><img id="resized-image"></div>
+  <div>
     <button id="download-button" class="file-button" hidden>
       Download afbeelding
     </button>
-  </span>
-
-  <div id="resolution-warning"></div>
-  <div><img id="resized-image"></div>
+  </div>
   <script src="riniser.js"></script>
 </body>
 </html>
