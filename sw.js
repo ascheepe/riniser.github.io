@@ -1,7 +1,7 @@
 const CACHE_NAME = "riniser v1";
 const FILES = [
   "./",
-  "./renisier.js",
+  "./reniser.js",
   "./favicon.ico",
   "./icon-192.png",
   "./icon-512.png"

@@ -70,8 +70,6 @@ function resizeImage() {
 
 document.getElementById("image-input").addEventListener("change", resizeImage);
 
-/*
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 }
-*/
