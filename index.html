@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="favicon.ico">
+<link rel="manifest" href="manifest.json">
+<title>Riniser</title>
+
+<style>
+:root {
+  --background-color: #fefdfc;
+  --foreground-color: #000;
+  --accent-color: #12488b;
+  --warning-color: #800;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1d1d20;
+    --foreground-color: #fefdfc;
+    --accent-color: #2a7bde;
+    --warning-color: #f55;
+  }
+}
+
+body {
+  background: var(--background-color);
+  color: var(--foreground-color);
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* style the label as a button */
+.file-button {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--accent-color);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.file-button:hover {
+  background: var(--accent-color);
+  color: var(--background-color);
+}
+
+button.file-button {
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
+#resolution-warning {
+  margin-top: 1.5rem;
+  color: var(--warning-color);
+}
+
+#download-button {
+  display: none;
+}
+
+img {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  max-width: 100%;
+  height: auto;
+}
+</style>
+</head>
+
+<body>
+  <span>
+  <label for="image-input" class="file-button">
+    Selecteer een afbeelding
+  </label>
+  <input type="file" id="image-input" accept="image/*">
+  </span>
+  <span>
+    <button id="download-button" class="file-button" hidden>
+      Download afbeelding
+    </button>
+  </span>
+
+  <div id="resolution-warning"></div>
+  <div><img id="resized-image"></div>
+  <script src="riniser.js"></script>
+</body>
+</html>
+
