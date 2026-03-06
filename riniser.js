@@ -61,6 +61,8 @@ function resizeImage() {
     }
 
     downloadButton.style.display = "inline-block";
+
+    URL.revokeObjectURL(img.src);
   };
 
   img.src = URL.createObjectURL(file);
