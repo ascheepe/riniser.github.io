@@ -34,28 +34,13 @@ function resizeImage() {
       image_aspect = width / height;
     }
 
-    let aspect_difference_percent = 0;
-    if (image_aspect < A4_ASPECT) {
-      aspect_difference_percent = 100 - 100 * image_aspect / A4_ASPECT;
-    } else {
-      aspect_difference_percent = 100 - 100 * A4_ASPECT / image_aspect;
-    }
-
-    if (aspect_difference_percent > 10) {
-      aspectWarning.textContent =
-        "⚠ Afbeelding is " + Math.round(aspect_difference_percent) + "% vervormd!";
+    if (Math.abs(image_aspect - A4_ASPECT) > (A4_ASPECT / 10)) {
+      aspectWarning.textContent = "⚠ Afbeelding is erg vervormd!";
       aspectWarning.style.display = "block";
     }
 
     if (width < MIN_WIDTH || height < MIN_HEIGHT) {
-      var quality = 0;
-      if (width < MIN_WIDTH) {
-        quality = Math.round(100 * width / MIN_WIDTH);
-      } else {
-        quality = Math.round(100 * height / MIN_HEIGHT);
-      }
-      resolutionWarning.textContent =
-        "⚠ Afbeelding is eigenlijk te klein! (" + quality + "% van 150dpi)";
+      resolutionWarning.textContent = "⚠ Afbeelding is veel te klein!";
       resolutionWarning.style.display = "block";
     }
 
@@ -81,8 +66,7 @@ function resizeImage() {
       a.download = "resized-image";
       a.click();
     }
-
-    downloadButton.style.display = "inline-block";
+    downloadButton.style.display = "block";
 
     URL.revokeObjectURL(img.src);
   };
