@@ -61,14 +61,6 @@ function resizeImage() {
     }
 
     downloadButton.style.display = "inline-block";
-
-    /* make sure the object is rebuild before taking focus */
-    requestAnimationFrame(() => {
-      output.scrollIntoView({behavior: "smooth"});
-      output.focus();
-    }, 0);
-
-    URL.revokeObjectURL(img.src);
   };
 
   img.src = URL.createObjectURL(file);
