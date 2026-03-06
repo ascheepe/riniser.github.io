@@ -12,7 +12,7 @@
   --background-color: #fefdfc;
   --foreground-color: #000;
   --accent-color: #12488b;
-  --warning-color: #800;
+  --warning-color: #a00;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,8 +56,9 @@ button.file-button {
   font: inherit;
 }
 
-#resolution-warning {
-  margin-top: 1.5rem;
+.warning {
+  margin-top: 1rem;
+  display: none;
   color: var(--warning-color);
 }
 
@@ -88,7 +89,8 @@ img:focus {
   </label>
   <input type="file" id="image-input" accept="image/*">
   </div>
-  <div id="resolution-warning"></div>
+  <div class="warning" id="resolution-warning"></div>
+  <div class="warning" id="aspect-warning"></div>
   <div><img id="resized-image" tabindex="-1"></div>
   <div>
     <button id="download-button" class="file-button" hidden>
