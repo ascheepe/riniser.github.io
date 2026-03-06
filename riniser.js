@@ -67,6 +67,8 @@ function resizeImage() {
       output.scrollIntoView({behavior: "smooth"});
       output.focus();
     }, 0);
+
+    URL.revokeObjectURL(img.src);
   };
 
   img.src = URL.createObjectURL(file);
