@@ -13,6 +13,7 @@
   --foreground-color: #000;
   --accent-color: #12488b;
   --hover-color: #2a7bde;
+  --button-text-color: #fefdfc;
   --warning-color: #c01c28;
 }
 
@@ -22,6 +23,7 @@
     --foreground-color: #fefdfc;
     --accent-color: #2a7bde;
     --hover-color: #12488b;
+    --button-text-color: #fefdfc;
     --warning-color: #f66151;
   }
 }
@@ -46,6 +48,7 @@ input[type="checkbox"] {
 .file-button {
   display: inline-block;
   padding: 0.6rem 1rem;
+  color: var(--button-text-color);
   background-color: var(--accent-color);
   border: 2px solid var(--accent-color);
   border-radius: 6px;
@@ -59,7 +62,7 @@ input[type="checkbox"] {
 }
 
 button.file-button {
-  color: inherit;
+  color: var(--button-text-color);
   font: inherit;
 }
 
