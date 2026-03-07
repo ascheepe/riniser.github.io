@@ -1,16 +1,29 @@
+const A4_ASPECT = Math.sqrt(2);
+
+const downloadButton = document.getElementById("download-button");
+const resolutionWarning = document.getElementById("resolution-warning");
+const aspectWarning = document.getElementById("aspect-warning");
+const labelCheckbox = document.getElementById("is-label");
+const input = document.getElementById("image-input");
+const output = document.getElementById("resized-image");
+let previewUrl = null;
+
 function toLabel(img) {
   const canvas = document.createElement("canvas");
 
   const width = img.width;
   const height = img.height;
+  let pageWidth = width * 2;
+  let pageHeight = height * 2;
 
-  if (width > height) {
-    canvas.height = img.height * 2;
-    canvas.width = Math.round(img.width * 2 * Math.sqrt(2));
+  if (pageHeight / pageWidth > A4_ASPECT) {
+    pageWidth = pageHeight / A4_ASPECT;
   } else {
-    canvas.width = img.width * 2;
-    canvas.height = Math.round(img.height * 2 * Math.sqrt(2));
+    pageHeight = pageWidth * A4_ASPECT;
   }
+
+  canvas.width = Math.round(pageWidth);
+  canvas.height = Math.round(pageHeight);
 
   const ctx = canvas.getContext("2d");
   ctx.fillStyle = "white";
@@ -22,32 +35,32 @@ function toLabel(img) {
 
 function toA4(img) {
   /* 150dpi should really be the minimum */
-  const MIN_WIDTH = 1240;
-  const MIN_HEIGHT = 1754;
-  const A4_ASPECT = Math.sqrt(2);
-
-  const resolutionWarning = document.getElementById("resolution-warning");
-  const aspectWarning = document.getElementById("aspect-warning");
+  const MIN_SMALL_SIDE = 1240;
+  const MIN_LONG_SIDE = 1754;
 
   let width = img.width;
   let height = img.height;
-  let image_aspect = Math.max(width, height) / Math.min(width, height);
+  const image_aspect = Math.max(width, height) / Math.min(width, height);
 
   if (Math.abs(image_aspect - A4_ASPECT) > (A4_ASPECT / 10)) {
     aspectWarning.textContent = "⚠ Afbeelding is erg vervormd!";
     aspectWarning.style.display = "block";
   }
 
-  if (width < MIN_WIDTH || height < MIN_HEIGHT) {
+  let tooSmall = false;
+  if (width < height) {
+    height = Math.round(width * A4_ASPECT);
+    tooSmall = width < MIN_SMALL_SIDE || height < MIN_LONG_SIDE;
+  } else {
+    width = Math.round(height * A4_ASPECT);
+    tooSmall = width < MIN_LONG_SIDE || height < MIN_SMALL_SIDE;
+  }
+
+  if (tooSmall) {
     resolutionWarning.textContent = "⚠ Afbeelding is veel te klein!";
     resolutionWarning.style.display = "block";
   }
 
-  if (width < height) {
-    height = Math.round(width * A4_ASPECT);
-  } else {
-    width = Math.round(height * A4_ASPECT);
-  }
 
   const canvas = document.createElement("canvas");
   canvas.width = width;
@@ -60,12 +73,7 @@ function toA4(img) {
 }
 
 function resizeImage() {
-  const input = document.getElementById("image-input");
-  const output = document.getElementById("resized-image");
-  const isLabel = document.getElementById("is-label").checked;
-  const downloadButton = document.getElementById("download-button");
-  const resolutionWarning = document.getElementById("resolution-warning");
-  const aspectWarning = document.getElementById("aspect-warning");
+  const isLabel = labelCheckbox.checked;
 
   resolutionWarning.style.display = "none";
   aspectWarning.style.display = "none";
@@ -80,26 +88,29 @@ function resizeImage() {
   const img = new Image();
 
   img.onload = function () {
-    let resizeHandler;
-    if (isLabel) {
-      resizeHandler = toLabel;
-    } else {
-      resizeHandler = toA4;
-    }
-
+    let resizeHandler = isLabel ? toLabel : toA4;
     const canvas = resizeHandler(img);
-    canvas.toBlob(blob => {
-      const url = URL.createObjectURL(blob);
-      output.src = url;
-    });
 
-    downloadButton.onclick = function() {
-      const a = document.createElement("a");
-      a.href = dataURL;
-      a.download = "resized-image";
-      a.click();
-    }
-    downloadButton.style.display = "block";
+    canvas.toBlob(blob => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+
+      previewUrl = URL.createObjectURL(blob);
+      output.src = previewUrl;
+
+      downloadButton.onclick = function() {
+        const a = document.createElement("a");
+        a.href = previewUrl;
+
+        const filename = file.name.replace(/\.[^.]+$/, "");
+        const extension = file.name.split(".").pop();
+        const newName = filename + "-A4." + extension;
+        a.download = newName;
+        a.click();
+      }
+      downloadButton.style.display = "block";
+    });
 
     URL.revokeObjectURL(img.src);
   };
@@ -109,8 +120,8 @@ function resizeImage() {
 
 /* ---------------- wiring ---------------- */
 
-document.getElementById("image-input").addEventListener("change", resizeImage);
-document.getElementById("is-label").addEventListener("change", resizeImage);
+input.addEventListener("change", resizeImage);
+labelCheckbox.addEventListener("change", resizeImage);
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
