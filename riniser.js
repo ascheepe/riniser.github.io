@@ -31,13 +31,7 @@ function toA4(img) {
 
   let width = img.width;
   let height = img.height;
-
-  let image_aspect = 0;
-  if (width < height) {
-    image_aspect = height / width;
-  } else {
-    image_aspect = width / height;
-  }
+  let image_aspect = Math.max(width, height) / Math.min(width, height);
 
   if (Math.abs(image_aspect - A4_ASPECT) > (A4_ASPECT / 10)) {
     aspectWarning.textContent = "⚠ Afbeelding is erg vervormd!";
