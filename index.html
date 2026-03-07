@@ -35,6 +35,11 @@ input[type="file"] {
   display: none;
 }
 
+input[type="checkbox"] {
+  display: inline-block;
+  margin-top: 1.5rem;
+}
+
 /* style the label as a button */
 .file-button {
   display: inline-block;
@@ -72,6 +77,7 @@ img {
   max-width: 100%;
   height: auto;
   border: 1px transparent;
+  background-color: white;
 }
 
 img:focus {
@@ -84,10 +90,16 @@ img:focus {
 
 <body>
   <div>
-  <label for="image-input" class="file-button">
-    Selecteer een afbeelding
-  </label>
-  <input type="file" id="image-input" accept="image/*">
+    <label class="file-button">
+      Selecteer een afbeelding
+    <input type="file" id="image-input" accept="image/*" />
+    </label>
+  </div>
+  <div>
+    <label>
+      <input type="checkbox" id="is-label" name="is-label" value="0">
+      Maak verzendlabel
+    </label>
   </div>
   <div class="warning" id="resolution-warning"></div>
   <div class="warning" id="aspect-warning"></div>
