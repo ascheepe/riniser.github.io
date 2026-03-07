@@ -1,4 +1,4 @@
-const CACHE_NAME = "riniser v12";
+const CACHE_NAME = "riniser v13";
 const FILES = [
   "./",
   "./reniser.js",
