@@ -1,8 +1,8 @@
 function toLabel(img) {
   const canvas = document.createElement("canvas");
 
-  width = img.width;
-  height = img.height;
+  const width = img.width;
+  const height = img.height;
 
   if (width > height) {
     canvas.height = img.height * 2;
