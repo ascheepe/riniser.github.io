@@ -76,13 +76,12 @@ button.file-button {
   display: none;
 }
 
-img {
+#resized-image {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   max-width: 100%;
   height: auto;
-  border: 1px transparent;
-  background-color: white;
+  border-color: var(--accent-color);
 }
 
  /* The switch - the box around the slider */
@@ -169,7 +168,7 @@ input:checked + .slider:before {
   </div>
   <div class="warning" id="resolution-warning"></div>
   <div class="warning" id="aspect-warning"></div>
-  <div><img id="resized-image" tabindex="-1"></div>
+  <div><img id="resized-image"></div>
   <div>
     <button id="download-button" class="file-button" hidden>
       Download afbeelding

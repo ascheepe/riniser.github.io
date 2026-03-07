@@ -9,8 +9,6 @@ const output = document.getElementById("resized-image");
 let previewUrl = null;
 
 function toLabel(img) {
-  const canvas = document.createElement("canvas");
-
   const width = img.width;
   const height = img.height;
   let pageWidth = width * 2;
@@ -22,6 +20,7 @@ function toLabel(img) {
     pageHeight = pageWidth * A4_ASPECT;
   }
 
+  const canvas = document.createElement("canvas");
   canvas.width = Math.round(pageWidth);
   canvas.height = Math.round(pageHeight);
 
@@ -57,7 +56,7 @@ function toA4(img) {
   }
 
   if (tooSmall) {
-    resolutionWarning.textContent = "⚠ Afbeelding is veel te klein!";
+    resolutionWarning.textContent = "⚠ Afbeelding is te klein!";
     resolutionWarning.style.display = "block";
   }
 
@@ -73,16 +72,17 @@ function toA4(img) {
 }
 
 function resizeImage() {
+  if (input.files.length !== 1) {
+    console.log("resizeImage: no file?");
+    return;
+  }
+
   const isLabel = labelCheckbox.checked;
 
   resolutionWarning.style.display = "none";
   aspectWarning.style.display = "none";
   downloadButton.style.display = "none";
-
-  if (input.files.length !== 1) {
-    console.log("resizeImage: no file?");
-    return;
-  }
+  output.style.borderStyle = isLabel ? "solid" : "none";
 
   const file = input.files[0];
   const img = new Image();
