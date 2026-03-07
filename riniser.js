@@ -6,10 +6,10 @@ function toLabel(img) {
 
   if (width > height) {
     canvas.height = img.height * 2;
-    canvas.width = img.width * 2 * Math.sqrt(2);
+    canvas.width = Math.round(img.width * 2 * Math.sqrt(2));
   } else {
     canvas.width = img.width * 2;
-    canvas.height = img.height * 2 * Math.sqrt(2);
+    canvas.height = Math.round(img.height * 2 * Math.sqrt(2));
   }
 
   const ctx = canvas.getContext("2d");
