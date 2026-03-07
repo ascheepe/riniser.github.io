@@ -88,8 +88,10 @@ function resizeImage() {
     }
 
     const canvas = resizeHandler(img);
-    const dataURL = canvas.toDataURL(file.type);
-    output.src = dataURL;
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      output.src = url;
+    });
 
     downloadButton.onclick = function() {
       const a = document.createElement("a");
