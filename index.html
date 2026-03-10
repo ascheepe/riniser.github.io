@@ -15,6 +15,7 @@
   --hover-color: #2a7bde;
   --button-text-color: #fefdfc;
   --warning-color: #c01c28;
+  --error-color: #c01c28;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,6 +26,7 @@
     --hover-color: #12488b;
     --button-text-color: #fefdfc;
     --warning-color: #f66151;
+    --error-color: #f66151;
   }
 }
 
@@ -67,6 +69,12 @@ button.file-button {
 }
 
 .warning {
+  margin-top: 1rem;
+  display: none;
+  color: var(--warning-color);
+}
+
+.error {
   margin-top: 1rem;
   display: none;
   color: var(--warning-color);
@@ -166,8 +174,7 @@ input:checked + .slider:before {
     </label>
     Maak verzendlabel
   </div>
-  <div class="warning" id="resolution-warning"></div>
-  <div class="warning" id="aspect-warning"></div>
+  <div class="error" id="no-file-error"></div>
   <div><img id="resized-image"></div>
   <div>
     <button id="download-button" class="file-button" hidden>
