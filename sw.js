@@ -1,25 +1,12 @@
-const CACHE_NAME = "riniser v19";
-const FILES = [
-  "./",
-  "./reniser.js",
-  "./favicon.ico",
-  "./icon-192.png",
-  "./icon-512.png"
-  "./index.html",
-  "./manifest.json",
-  "./sw.js",
-];
+const CACHE = "photo-cropper";
+const FILES = ["./", "./index.html", "./style.css", "./riniser.js", "./manifest.json"];
 
 self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES))
-  );
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)));
 });
 
 self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
+    caches.match(event.request).then(cached => cached || fetch(event.request))
   );
 });
-

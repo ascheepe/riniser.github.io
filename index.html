@@ -1,187 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="nl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="favicon.ico">
-<link rel="manifest" href="manifest.json">
-<title>Riniser</title>
-
-<style>
-:root {
-  --background-color: #fefdfc;
-  --foreground-color: #000;
-  --accent-color: #12488b;
-  --hover-color: #2a7bde;
-  --button-text-color: #fefdfc;
-  --warning-color: #c01c28;
-  --error-color: #c01c28;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: #1d1d20;
-    --foreground-color: #fefdfc;
-    --accent-color: #2a7bde;
-    --hover-color: #12488b;
-    --button-text-color: #fefdfc;
-    --warning-color: #f66151;
-    --error-color: #f66151;
-  }
-}
-
-body {
-  background: var(--background-color);
-  color: var(--foreground-color);
-  font-family: system-ui, sans-serif;
-  padding: 2rem;
-}
-
-input[type="file"] {
-  display: none;
-}
-
-input[type="checkbox"] {
-  display: inline-block;
-  margin-top: 1.5rem;
-}
-
-/* style the label as a button */
-.file-button {
-  display: inline-block;
-  padding: 0.6rem 1rem;
-  color: var(--button-text-color);
-  background-color: var(--accent-color);
-  border: 2px solid var(--accent-color);
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.file-button:hover {
-  background: var(--hover-color);
-  border: 2px solid var(--hover-color);
-}
-
-button.file-button {
-  color: var(--button-text-color);
-  font: inherit;
-}
-
-.warning {
-  margin-top: 1rem;
-  display: none;
-  color: var(--warning-color);
-}
-
-.error {
-  margin-top: 1rem;
-  display: none;
-  color: var(--warning-color);
-}
-
-#download-button {
-  display: none;
-}
-
-#resized-image {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  max-width: 100%;
-  height: auto;
-  border-color: var(--accent-color);
-}
-
- /* The switch - the box around the slider */
-.switch {
-  margin-top: 1.5rem;
-  margin-right: 0.5rem;
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: var(--accent-color);
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px var(--accent-color);
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#202124">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <title>Foto uitsnijden</title>
 </head>
-
 <body>
-  <div>
-    <label class="file-button">
-      Selecteer een afbeelding
-    <input type="file" id="image-input" accept="image/*" />
+  <header>
+    <h1>Foto uitsnijden</h1>
+    <label class="button">
+      Foto kiezen
+      <input id="fileInput" type="file" accept="image/*" hidden>
     </label>
-  </div>
-  <div>
-    <label class="switch">
-      <input type="checkbox" id="is-label" name="is-label" value="0">
-      <span class="slider round"></span>
-    </label>
-    Maak verzendlabel
-  </div>
-  <div class="error" id="no-file-error"></div>
-  <div><img id="resized-image"></div>
-  <div>
-    <button id="download-button" class="file-button" hidden>
-      Download afbeelding
-    </button>
-  </div>
-  <script src="riniser.js"></script>
+  </header>
+
+  <main>
+    <section class="controls">
+      <label>
+        Verhouding
+        <select id="ratioSelect">
+          <option value="1">1:1</option>
+          <option value="4/3">4:3</option>
+          <option value="3/4">3:4</option>
+          <option value="3/2">3:2</option>
+          <option value="2/3">2:3</option>
+          <option value="16/9">16:9</option>
+          <option value="9/16">9:16</option>
+          <option value="210/297" selected>A4 staand</option>
+          <option value="297/210">A4 liggend</option>
+          <option value="100/150">10 × 15 cm</option>
+          <option value="150/100">15 × 10 cm</option>
+        </select>
+      </label>
+
+      <label>
+        Formaat op papier
+        <select id="printSize">
+          <option value="210x297">A4</option>
+          <option value="150x100">10 × 15 cm</option>
+          <option value="100x100">10 × 10 cm</option>
+          <option value="200x200">20 × 20 cm</option>
+          <option value="297x210">A4 liggend</option>
+        </select>
+      </label>
+
+      <div class="sizeInfo" id="sizeInfo">Kies een foto.</div>
+    </section>
+
+    <section class="workspace">
+      <div class="canvasWrap" id="canvasWrap">
+        <canvas id="canvas"></canvas>
+        <div class="cropFrame" id="cropFrame" aria-hidden="true">
+          <div class="corner tl"></div><div class="corner tr"></div>
+          <div class="corner bl"></div><div class="corner br"></div>
+          <!-- <span>UITSNEDE GEBIED</span> -->
+        </div>
+      </div>
+      <p class="hint">Sleep de foto. Gebruik twee vingers om in of uit te zoomen.</p>
+    </section>
+
+    <section class="actions">
+      <button id="resetButton" disabled>Reset</button>
+      <button id="downloadButton" disabled>Uitsnede opslaan</button>
+      <button id="printButton" disabled>Printen</button>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+<script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");</script>
 </body>
 </html>
-
