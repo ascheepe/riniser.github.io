@@ -52,7 +52,7 @@ select, button, .button {
   border-radius: 8px;
   padding: .6rem .8rem;
   background: white;
-  color: inherit;
+  color: black;
   font: inherit;
 }
 
