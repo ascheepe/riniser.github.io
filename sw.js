@@ -1,4 +1,4 @@
-const CACHE = "photo-cropper";
+const CACHE = "riniser-v2";
 const FILES = ["./", "./index.html", "./style.css", "./riniser.js", "./manifest.json"];
 
 self.addEventListener("install", event => {
