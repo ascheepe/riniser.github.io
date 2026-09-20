@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#202124">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
-  <title>Foto uitsnijden</title>
+  <title>Riniser</title>
 </head>
 <body>
   <header>
-    <h1>Foto uitsnijden</h1>
+    <h1>Riniser</h1>
     <label class="button">
       Foto kiezen
       <input id="fileInput" type="file" accept="image/*" hidden>
@@ -22,17 +22,10 @@
       <label>
         Verhouding
         <select id="ratioSelect">
-          <option value="1">1:1</option>
-          <option value="4/3">4:3</option>
-          <option value="3/4">3:4</option>
-          <option value="3/2">3:2</option>
-          <option value="2/3">2:3</option>
-          <option value="16/9">16:9</option>
-          <option value="9/16">9:16</option>
-          <option value="210/297" selected>A4 staand</option>
+          <option value="210/297" selected>A4</option>
           <option value="297/210">A4 liggend</option>
           <option value="100/150">10 × 15 cm</option>
-          <option value="150/100">15 × 10 cm</option>
+          <option value="150/100">10 × 15 cm liggend</option>
         </select>
       </label>
 
@@ -40,14 +33,11 @@
         Formaat op papier
         <select id="printSize">
           <option value="210x297">A4</option>
-          <option value="150x100">10 × 15 cm</option>
-          <option value="100x100">10 × 10 cm</option>
-          <option value="200x200">20 × 20 cm</option>
           <option value="297x210">A4 liggend</option>
+          <option value="100x150">10 × 15 cm</option>
+          <option value="150x100">10 × 15 cm liggend</option>
         </select>
       </label>
-
-      <div class="sizeInfo" id="sizeInfo">Kies een foto.</div>
     </section>
 
     <section class="workspace">

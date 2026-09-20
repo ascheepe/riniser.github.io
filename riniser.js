@@ -38,19 +38,6 @@ function updateFrame() {
   }
 
   draw();
-  updateInfo();
-}
-
-function updateInfo() {
-  if (!image) {
-    sizeInfo.textContent = "Kies een foto.";
-    return;
-  }
-
-  const [w, h] = printSize.value.split("x").map(Number);
-  sizeInfo.textContent =
-    `Kader: ${ratioSelect.options[ratioSelect.selectedIndex].text} · ` +
-    `printformaat: ${w} × ${h} mm · zonder witte randen`;
 }
 
 function fitImage() {
@@ -141,7 +128,6 @@ fileInput.addEventListener("change", () => {
 });
 
 ratioSelect.addEventListener("change", updateFrame);
-printSize.addEventListener("change", updateInfo);
 
 resetButton.addEventListener("click", () => {
   fitImage();
